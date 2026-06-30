@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Menampilkan halaman login
      */
     public function create(): View
     {
@@ -20,19 +20,40 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Proses Login
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Autentikasi user
         $request->authenticate();
 
+        // Regenerasi session
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Ambil user yang login
+        $user = Auth::user();
+
+        // Jika Admin
+        if ($user->role === 'admin') {
+            return redirect()->route('dashboard');
+        }
+
+        // Jika Customer
+        if ($user->role === 'customer') {
+            return redirect()->route('customer.dashboard');
+        }
+
+        // Jika role tidak dikenali
+        Auth::logout();
+
+        return redirect()->route('login')
+            ->withErrors([
+                'email' => 'Role akun tidak valid.',
+            ]);
     }
 
     /**
-     * Destroy an authenticated session.
+     * Logout
      */
     public function destroy(Request $request): RedirectResponse
     {
@@ -42,6 +63,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('welcome');
     }
 }

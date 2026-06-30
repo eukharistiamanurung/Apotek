@@ -7,59 +7,84 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Menampilkan semua supplier
     public function index()
     {
-        //
+        $supplier = Supplier::latest()->get();
+
+        return view('supplier.index', compact('supplier'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Menampilkan form tambah supplier
     public function create()
     {
-        //
+        return view('supplier.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Menyimpan supplier baru
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_supplier' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required',
+            'email' => 'nullable|email'
+        ]);
+
+        Supplier::create([
+            'nama_supplier' => $request->nama_supplier,
+            'alamat' => $request->alamat,
+            'telepon' => $request->telepon,
+            'email' => $request->email
+        ]);
+
+        return redirect()
+            ->route('supplier.index')
+            ->with('success', 'Data supplier berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Supplier $supplier)
+    // Form edit supplier
+    public function edit($id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+
+        return view('supplier.edit', compact('supplier'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Supplier $supplier)
+    // Update supplier
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_supplier' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required',
+            'email' => 'nullable|email'
+        ]);
+
+        $supplier = Supplier::findOrFail($id);
+
+        $supplier->update([
+            'nama_supplier' => $request->nama_supplier,
+            'alamat' => $request->alamat,
+            'telepon' => $request->telepon,
+            'email' => $request->email
+        ]);
+
+        return redirect()
+            ->route('supplier.index')
+            ->with('success', 'Data supplier berhasil diupdate');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Supplier $supplier)
+    // Hapus supplier
+    public function destroy($id)
     {
-        //
-    }
+        $supplier = Supplier::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Supplier $supplier)
-    {
-        //
+        $supplier->delete();
+
+        return redirect()
+            ->route('supplier.index')
+            ->with('success', 'Data supplier berhasil dihapus');
     }
 }
+?>

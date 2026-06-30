@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('obat', ObatController::class);
     Route::resource('supplier', SupplierController::class);
+    Route::resource('kategori', KategoriController::class);
 });
 
 require __DIR__.'/auth.php';

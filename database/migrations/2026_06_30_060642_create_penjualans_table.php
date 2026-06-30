@@ -6,39 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Jalankan migration.
-     */
     public function up(): void
     {
-        Schema::create('detail_penjualans', function (Blueprint $table) {
+        Schema::create('penjualans', function (Blueprint $table) {
 
             $table->id();
 
-            $table->foreignId('penjualan_id')
-                  ->constrained('penjualans')
+            $table->foreignId('user_id')
+                  ->constrained('users')
                   ->cascadeOnDelete();
 
-            $table->foreignId('obat_id')
-                  ->constrained('obats')
-                  ->cascadeOnDelete();
+            $table->string('kode_transaksi')->unique();
 
-            $table->integer('jumlah');
+            $table->date('tanggal');
 
-            $table->decimal('harga', 15, 2);
-
-            $table->decimal('subtotal', 15, 2);
+            $table->decimal('total_harga',15,2)->default(0);
 
             $table->timestamps();
 
         });
     }
 
-    /**
-     * Hapus tabel.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('detail_penjualans');
+        Schema::dropIfExists('penjualans');
     }
 };

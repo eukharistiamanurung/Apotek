@@ -1,63 +1,46 @@
-<!DOCTYPE html>
+@extends('layouts.admin')
 
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dashboard Apotek</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
 
 <style>
 
-body{
-    background:#0b1120;
-    color:white;
-}
+    .card-box{
+        border-radius:20px;
+        padding:25px;
+        color:white;
+        box-shadow:0 10px 25px rgba(0,0,0,.15);
+    }
 
-.card-box{
-    border-radius:20px;
-    padding:25px;
-    color:white;
-}
+    .obat{
+        background:linear-gradient(135deg,#3b82f6,#2563eb);
+    }
 
-.obat{
-    background:linear-gradient(135deg,#3b82f6,#2563eb);
-}
+    .supplier{
+        background:linear-gradient(135deg,#10b981,#059669);
+    }
 
-.supplier{
-    background:linear-gradient(135deg,#10b981,#059669);
-}
+    .kategori{
+        background:linear-gradient(135deg,#f59e0b,#d97706);
+    }
 
-.kategori{
-    background:linear-gradient(135deg,#f59e0b,#d97706);
-}
+    .penjualan{
+        background:linear-gradient(135deg,#8b5cf6,#7c3aed);
+    }
 
-.penjualan{
-    background:linear-gradient(135deg,#8b5cf6,#7c3aed);
-}
+    .pendapatan{
+        background:linear-gradient(135deg,#ef4444,#dc2626);
+    }
 
-.pendapatan{
-    background:linear-gradient(135deg,#ef4444,#dc2626);
-}
-
-.jumlah{
-    font-size:38px;
-    font-weight:bold;
-}
+    .jumlah{
+        font-size:38px;
+        font-weight:bold;
+    }
 
 </style>
 
-</head>
-<body>
-
-<div class="container py-5">
-
-```
-<h1 class="mb-4">
-    💊 Dashboard Sistem Apotek
-</h1>
+<h2 class="mb-4">
+    📊 Dashboard Sistem Apotek
+</h2>
 
 <div class="row g-4">
 
@@ -107,9 +90,5 @@ body{
     </div>
 
 </div>
-```
 
-</div>
-
-</body>
-</html>
+@endsection

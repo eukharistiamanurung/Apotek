@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PenjualanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('obat', ObatController::class);
     Route::resource('supplier', SupplierController::class);
     Route::resource('kategori', KategoriController::class);
+    Route::resource('penjualan', PenjualanController::class)
+    ->except(['edit', 'update']);
 });
 
 require __DIR__.'/auth.php';

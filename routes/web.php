@@ -115,4 +115,8 @@ Route::middleware('auth')->group(function () {
 
 });
 
+
+Route::get('/penjualan/{id}/invoice', [PenjualanController::class, 'invoice'])
+    ->name('penjualan.invoice');
+
 require __DIR__.'/auth.php';

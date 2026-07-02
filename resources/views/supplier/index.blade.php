@@ -4,70 +4,113 @@
 
 <style>
 
-    .header-card{
-        background:white;
-        border-radius:20px;
-        padding:25px;
-        margin-bottom:25px;
-        box-shadow:0 5px 20px rgba(0,0,0,.08);
-    }
+.page-title{
+    font-weight:700;
+    color:#1E293B;
+}
 
-    .table-card{
-        background:white;
-        border-radius:20px;
-        padding:25px;
-        box-shadow:0 5px 20px rgba(0,0,0,.08);
-    }
+.page-subtitle{
+    color:#64748B;
+}
 
-    .btn-add{
-        background:#2563eb;
-        color:white;
-        border:none;
-        border-radius:10px;
-        padding:10px 18px;
-        font-weight:600;
-    }
+.header-card{
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
 
-    .btn-add:hover{
-        background:#1d4ed8;
-        color:white;
-    }
+.table-card{
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
 
-    .table thead{
-        background:#2563eb;
-        color:white;
-    }
+.btn-add{
+    background:#2563EB;
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:10px 18px;
+    font-weight:600;
+}
 
-    .table thead th{
-        border:none;
-        padding:15px;
-    }
+.btn-add:hover{
+    background:#1D4ED8;
+    color:white;
+}
 
-    .table tbody td{
-        vertical-align:middle;
-    }
+.table{
+    margin-bottom:0;
+}
 
-    .btn-edit{
-        background:#facc15;
-        color:black;
-        border:none;
-    }
+.table thead{
+    background:#2563EB;
+    color:white;
+}
 
-    .btn-edit:hover{
-        background:#eab308;
-        color:black;
-    }
+.table thead th{
+    border:none;
+    text-align:center;
+    padding:15px;
+}
 
-    .btn-delete{
-        background:#dc2626;
-        color:white;
-        border:none;
-    }
+.table tbody td{
+    vertical-align:middle;
+    text-align:center;
+}
 
-    .btn-delete:hover{
-        background:#b91c1c;
-        color:white;
-    }
+.nama-supplier{
+    font-weight:600;
+    color:#2563EB;
+}
+
+.alamat{
+    max-width:250px;
+    white-space:normal;
+    text-align:left;
+}
+
+.badge-telp{
+    background:#10B981;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.email{
+    color:#2563EB;
+}
+
+.btn-edit{
+    background:#F59E0B;
+    color:white;
+    border:none;
+}
+
+.btn-edit:hover{
+    background:#D97706;
+    color:white;
+}
+
+.btn-delete{
+    background:#DC2626;
+    color:white;
+    border:none;
+}
+
+.btn-delete:hover{
+    background:#B91C1C;
+    color:white;
+}
+
+.pagination{
+    justify-content:center;
+    margin-top:25px;
+}
 
 </style>
 
@@ -75,18 +118,26 @@
 
     <div>
 
-        <h2 class="fw-bold">
+        <h2 class="page-title">
+
             🏢 Data Supplier
+
         </h2>
 
-        <p class="text-muted mb-0">
-            Kelola seluruh data supplier apotek.
+        <p class="page-subtitle mb-0">
+
+            Kelola seluruh supplier obat pada sistem apotek.
+
         </p>
 
     </div>
 
-    <a href="{{ route('supplier.create') }}" class="btn btn-add">
-        + Tambah Supplier
+    <a
+        href="{{ route('supplier.create') }}"
+        class="btn btn-add">
+
+        ➕ Tambah Supplier
+
     </a>
 
 </div>
@@ -94,97 +145,152 @@
 @if(session('success'))
 
 <div class="alert alert-success">
+
     {{ session('success') }}
+
 </div>
 
 @endif
 
 <div class="table-card">
 
-    <div class="table-responsive">
+<div class="table-responsive">
 
-        <table class="table table-hover align-middle">
+<table class="table table-hover align-middle">
 
-            <thead>
+<thead>
 
-                <tr>
+<tr>
 
-                    <th>No</th>
-                    <th>Nama Supplier</th>
-                    <th>Alamat</th>
-                    <th>Telepon</th>
-                    <th>Email</th>
-                    <th width="180">Aksi</th>
+<th width="70">No</th>
+<th>Nama Supplier</th>
+<th>Alamat</th>
+<th>Telepon</th>
+<th>Email</th>
+<th width="180">Aksi</th>
 
-                </tr>
+</tr>
 
-            </thead>
+</thead>
 
-            <tbody>
+<tbody>
 
-            @forelse($supplier as $item)
+@forelse($supplier as $item)
 
-                <tr>
+<tr>
 
-                    <td>{{ $loop->iteration }}</td>
+<td>
 
-                    <td>{{ $item->nama_supplier }}</td>
+{{ $supplier->firstItem() + $loop->index }}
 
-                    <td>{{ $item->alamat }}</td>
+</td>
 
-                    <td>{{ $item->telepon }}</td>
+<td>
 
-                    <td>{{ $item->email }}</td>
+<span class="nama-supplier">
 
-                    <td>
+{{ $item->nama_supplier }}
 
-                        <a href="{{ route('supplier.edit',$item->id) }}"
-                           class="btn btn-warning btn-sm btn-edit">
+</span>
 
-                            Edit
+</td>
 
-                        </a>
+<td class="alamat">
 
-                        <form action="{{ route('supplier.destroy',$item->id) }}"
-                              method="POST"
-                              class="d-inline">
+{{ $item->alamat }}
 
-                            @csrf
-                            @method('DELETE')
+</td>
 
-                            <button
-                                class="btn btn-danger btn-sm btn-delete"
-                                onclick="return confirm('Yakin ingin menghapus supplier ini?')">
+<td>
 
-                                Hapus
+<span class="badge-telp">
 
-                            </button>
+{{ $item->telepon }}
 
-                        </form>
+</span>
 
-                    </td>
+</td>
 
-                </tr>
+<td>
 
-            @empty
+@if($item->email)
 
-                <tr>
+<span class="email">
 
-                    <td colspan="6" class="text-center text-muted">
+{{ $item->email }}
 
-                        Belum ada data supplier.
+</span>
 
-                    </td>
+@else
 
-                </tr>
+-
 
-            @endforelse
+@endif
 
-            </tbody>
+</td>
 
-        </table>
+<td>
 
-    </div>
+<a
+href="{{ route('supplier.edit',$item->id) }}"
+class="btn btn-sm btn-edit">
+
+✏ Edit
+
+</a>
+
+<form
+action="{{ route('supplier.destroy',$item->id) }}"
+method="POST"
+class="d-inline">
+
+@csrf
+@method('DELETE')
+
+<button
+type="submit"
+class="btn btn-sm btn-delete"
+onclick="return confirm('Yakin ingin menghapus supplier ini?')">
+
+🗑 Hapus
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+@empty
+
+<tr>
+
+<td colspan="6" class="text-center py-4">
+
+Belum ada data supplier.
+
+</td>
+
+</tr>
+
+@endforelse
+
+</tbody>
+
+</table>
+
+</div>
+
+@if($supplier->hasPages())
+
+<div class="mt-4">
+
+{{ $supplier->links('pagination::bootstrap-5') }}
+
+</div>
+
+@endif
 
 </div>
 

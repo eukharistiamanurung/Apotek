@@ -4,65 +4,83 @@
 
 <style>
 
+.page-title{
+    font-weight:700;
+    color:#1E293B;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
 .header-card{
-    background:white;
+    background:#fff;
     border-radius:20px;
     padding:25px;
     margin-bottom:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 .table-card{
-    background:white;
+    background:#fff;
     border-radius:20px;
     padding:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
-.btn-add{
-    background:#2563eb;
+.btn-detail{
+    background:#0EA5E9;
     color:white;
     border:none;
-    border-radius:10px;
-    padding:10px 18px;
-    font-weight:600;
 }
 
-.btn-add:hover{
-    background:#1d4ed8;
+.btn-detail:hover{
+    background:#0284C7;
     color:white;
-}
-
-.table thead{
-    background:#2563eb;
-    color:white;
-}
-
-.table thead th{
-    border:none;
-    padding:15px;
-    text-align:center;
-}
-
-.table tbody td{
-    vertical-align:middle;
-    text-align:center;
 }
 
 .btn-delete{
-    background:#dc2626;
+    background:#DC2626;
     color:white;
     border:none;
 }
 
 .btn-delete:hover{
-    background:#b91c1c;
+    background:#B91C1C;
     color:white;
 }
 
 .total{
     font-weight:bold;
-    color:#16a34a;
+    color:#16A34A;
+}
+
+.badge-status{
+    background:#16A34A;
+    color:white;
+    border-radius:20px;
+    padding:6px 12px;
+}
+
+.table thead{
+    background:#2563EB;
+    color:white;
+}
+
+.table thead th{
+    border:none;
+    text-align:center;
+    padding:15px;
+}
+
+.table tbody td{
+    text-align:center;
+    vertical-align:middle;
+}
+
+.pagination{
+    justify-content:center;
+    margin-top:25px;
 }
 
 </style>
@@ -71,15 +89,27 @@
 
     <div>
 
-        <h2 class="fw-bold">
-            🛒 Riwayat Penjualan
+        <h2 class="page-title">
+
+            🛒 Data Penjualan
+
         </h2>
 
-        <p class="text-muted mb-0">
-            Daftar seluruh transaksi yang telah dilakukan.
+        <p class="page-subtitle mb-0">
+
+            Daftar seluruh transaksi penjualan obat.
+
         </p>
 
     </div>
+
+    <a
+        href="{{ route('penjualan.create') }}"
+        class="btn btn-primary">
+
+        ➕ Tambah Penjualan
+
+    </a>
 
 </div>
 
@@ -104,10 +134,12 @@
 <tr>
 
 <th>No</th>
-<th>Kode Transaksi</th>
+<th>Kode</th>
+<th>Customer</th>
 <th>Tanggal</th>
-<th>Total Harga</th>
-<th width="120">Aksi</th>
+<th>Total</th>
+<th>Status</th>
+<th width="180">Aksi</th>
 
 </tr>
 
@@ -119,11 +151,21 @@
 
 <tr>
 
-<td>{{ $loop->iteration }}</td>
+<td>
+
+{{ $penjualan->firstItem() + $loop->index }}
+
+</td>
 
 <td>
 
 {{ $item->kode_transaksi }}
+
+</td>
+
+<td>
+
+{{ $item->user->name ?? '-' }}
 
 </td>
 
@@ -141,6 +183,24 @@ Rp {{ number_format($item->total_harga,0,',','.') }}
 
 <td>
 
+<span class="badge-status">
+
+Selesai
+
+</span>
+
+</td>
+
+<td>
+
+<a
+href="{{ route('penjualan.show',$item->id) }}"
+class="btn btn-sm btn-detail">
+
+👁 Detail
+
+</a>
+
 <form
 action="{{ route('penjualan.destroy',$item->id) }}"
 method="POST"
@@ -151,7 +211,7 @@ class="d-inline">
 
 <button
 type="submit"
-class="btn btn-danger btn-sm btn-delete"
+class="btn btn-sm btn-delete"
 onclick="return confirm('Yakin ingin menghapus transaksi ini?')">
 
 🗑 Hapus
@@ -168,7 +228,7 @@ onclick="return confirm('Yakin ingin menghapus transaksi ini?')">
 
 <tr>
 
-<td colspan="5" class="text-center text-muted">
+<td colspan="7" class="text-center py-4">
 
 Belum ada transaksi.
 
@@ -183,6 +243,16 @@ Belum ada transaksi.
 </table>
 
 </div>
+
+@if($penjualan->hasPages())
+
+<div class="mt-4">
+
+{{ $penjualan->links('pagination::bootstrap-5') }}
+
+</div>
+
+@endif
 
 </div>
 

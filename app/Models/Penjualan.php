@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Penjualan extends Model
 {
@@ -16,7 +18,7 @@ class Penjualan extends Model
     /**
      * Relasi ke User
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -24,7 +26,7 @@ class Penjualan extends Model
     /**
      * Relasi ke Detail Penjualan
      */
-    public function detailPenjualans()
+    public function detailPenjualans(): HasMany
     {
         return $this->hasMany(DetailPenjualan::class);
     }

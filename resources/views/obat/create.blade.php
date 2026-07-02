@@ -4,306 +4,388 @@
 
 <style>
 
+.page-title{
+    font-weight:700;
+    color:#1E293B;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
 .card-custom{
-    background:white;
     border:none;
     border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 .card-header-custom{
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
     color:white;
     border-radius:20px 20px 0 0;
     padding:25px;
 }
 
-.card-body{
-    padding:30px;
+.form-label{
+    font-weight:600;
+    color:#334155;
 }
 
 .form-control,
 .form-select{
-    border-radius:10px;
+    border-radius:12px;
+    border:1px solid #CBD5E1;
+    padding:12px;
 }
 
-.btn-save{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:10px;
+.form-control:focus,
+.form-select:focus{
+    border-color:#2563EB;
+    box-shadow:0 0 0 .15rem rgba(37,99,235,.15);
 }
 
-.btn-save:hover{
-    background:#1d4ed8;
-    color:white;
-}
+.preview-box{
 
-.btn-back{
-    background:#6b7280;
-    color:white;
-    padding:10px 20px;
-    border-radius:10px;
-    text-decoration:none;
-}
+    border:2px dashed #CBD5E1;
 
-.btn-back:hover{
-    background:#4b5563;
-    color:white;
+    border-radius:15px;
+
+    padding:20px;
+
+    text-align:center;
+
+    background:#F8FAFC;
+
 }
 
 .preview{
-    width:200px;
-    height:200px;
+
+    width:220px;
+
+    height:220px;
+
     object-fit:cover;
-    border-radius:12px;
-    margin-top:15px;
+
+    border-radius:15px;
+
     display:none;
-    border:1px solid #ddd;
+
+}
+
+.btn-save{
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:12px 24px;
+
+}
+
+.btn-save:hover{
+
+    background:#1D4ED8;
+
+}
+
+.btn-back{
+
+    background:#64748B;
+
+    color:white;
+
+    border-radius:12px;
+
+    padding:12px 24px;
+
+    text-decoration:none;
+
+}
+
+.btn-back:hover{
+
+    background:#475569;
+
+    color:white;
+
+}
+
+.alert{
+
+    border-radius:15px;
+
 }
 
 </style>
 
+<div class="mb-4">
+
+    <h2 class="page-title">
+
+        <i class="bi bi-capsule"></i>
+
+        Tambah Data Obat
+
+    </h2>
+
+    <p class="page-subtitle">
+
+        Tambahkan data obat baru ke dalam sistem apotek.
+
+    </p>
+
+</div>
+
 <div class="card card-custom">
 
-    <div class="card-header-custom">
+<div class="card-header-custom">
 
-        <h3>💊 Tambah Data Obat</h3>
+<h4 class="mb-0">
 
-        <p class="mb-0">
-            Tambahkan data obat baru ke dalam sistem.
-        </p>
+<i class="bi bi-plus-circle"></i>
 
-    </div>
+Form Tambah Obat
 
-    <div class="card-body">
+</h4>
 
-        @if($errors->any())
+</div>
 
-            <div class="alert alert-danger">
+<div class="card-body p-4">
 
-                <ul class="mb-0">
+@if($errors->any())
 
-                    @foreach($errors->all() as $error)
+<div class="alert alert-danger">
 
-                        <li>{{ $error }}</li>
+<strong>
 
-                    @endforeach
+Terjadi kesalahan:
 
-                </ul>
+</strong>
 
-            </div>
+<ul class="mb-0 mt-2">
 
-        @endif
+@foreach($errors->all() as $error)
 
-        <form
-            action="{{ route('obat.store') }}"
-            method="POST"
-            enctype="multipart/form-data">
+<li>{{ $error }}</li>
 
-            @csrf
+@endforeach
 
-            <div class="row">
+</ul>
 
-                {{-- Kategori --}}
-                <div class="col-md-6 mb-3">
+</div>
 
-                    <label class="form-label">
+@endif
 
-                        Kategori
+<form
+action="{{ route('obat.store') }}"
+method="POST"
+enctype="multipart/form-data">
 
-                    </label>
+@csrf
 
-                    <select
-                        name="kategori_id"
-                        class="form-select"
-                        required>
+<div class="row">
 
-                        <option value="">
-                            -- Pilih Kategori --
-                        </option>
+<div class="col-md-6 mb-3">
 
-                        @foreach($kategori as $item)
+<label class="form-label">
 
-                            <option
-                                value="{{ $item->id }}"
-                                {{ old('kategori_id')==$item->id ? 'selected' : '' }}>
+Kategori
 
-                                {{ $item->nama_kategori }}
+</label>
 
-                            </option>
+<select
+name="kategori_id"
+class="form-select"
+required>
 
-                        @endforeach
+<option value="">
 
-                    </select>
+Pilih Kategori
 
-                </div>
+</option>
 
-                {{-- Kode --}}
-                <div class="col-md-6 mb-3">
+@foreach($kategori as $item)
 
-                    <label class="form-label">
+<option
+value="{{ $item->id }}"
+{{ old('kategori_id')==$item->id ? 'selected' : '' }}>
 
-                        Kode Obat
+{{ $item->nama_kategori }}
 
-                    </label>
+</option>
 
-                    <input
-                        type="text"
-                        name="kode_obat"
-                        class="form-control"
-                        value="{{ old('kode_obat') }}"
-                        required>
+@endforeach
 
-                </div>
+</select>
 
-                {{-- Nama --}}
-                <div class="col-md-6 mb-3">
+</div>
 
-                    <label class="form-label">
+<div class="col-md-6 mb-3">
 
-                        Nama Obat
+<label class="form-label">
 
-                    </label>
+Kode Obat
 
-                    <input
-                        type="text"
-                        name="nama_obat"
-                        class="form-control"
-                        value="{{ old('nama_obat') }}"
-                        required>
+</label>
 
-                </div>
+<input
+type="text"
+name="kode_obat"
+class="form-control"
+value="{{ old('kode_obat') }}"
+required>
 
-                {{-- Stok --}}
-                <div class="col-md-6 mb-3">
+</div>
 
-                    <label class="form-label">
+<div class="col-md-6 mb-3">
 
-                        Stok
+<label class="form-label">
 
-                    </label>
+Nama Obat
 
-                    <input
-                        type="number"
-                        name="stok"
-                        class="form-control"
-                        value="{{ old('stok') }}"
-                        required>
+</label>
 
-                </div>
+<input
+type="text"
+name="nama_obat"
+class="form-control"
+value="{{ old('nama_obat') }}"
+required>
 
-                {{-- Harga --}}
-                <div class="col-md-6 mb-3">
+</div>
 
-                    <label class="form-label">
+<div class="col-md-3 mb-3">
 
-                        Harga Jual
+<label class="form-label">
 
-                    </label>
+Stok
 
-                    <input
-                        type="number"
-                        name="harga_jual"
-                        class="form-control"
-                        value="{{ old('harga_jual') }}"
-                        required>
+</label>
 
-                </div>
+<input
+type="number"
+name="stok"
+class="form-control"
+value="{{ old('stok') }}"
+required>
 
-                {{-- Deskripsi --}}
-                <div class="col-md-12 mb-3">
+</div>
 
-                    <label class="form-label">
+<div class="col-md-3 mb-3">
 
-                        Deskripsi Obat
+<label class="form-label">
 
-                    </label>
+Harga Jual
 
-                    <textarea
-                        name="deskripsi"
-                        rows="5"
-                        class="form-control"
-                        placeholder="Masukkan deskripsi obat...">{{ old('deskripsi') }}</textarea>
+</label>
 
-                </div>
+<input
+type="number"
+name="harga_jual"
+class="form-control"
+value="{{ old('harga_jual') }}"
+required>
 
-                {{-- Upload Gambar --}}
-                <div class="col-md-12 mb-3">
+</div>
 
-                    <label class="form-label">
+<div class="col-md-12 mb-3">
 
-                        Gambar Obat
+<label class="form-label">
 
-                    </label>
+Deskripsi
 
-                    <input
-                        type="file"
-                        id="gambar"
-                        name="gambar"
-                        class="form-control"
-                        accept=".jpg,.jpeg,.png,.webp">
+</label>
 
-                    <small class="text-muted">
+<textarea
+name="deskripsi"
+rows="5"
+class="form-control"
+placeholder="Masukkan deskripsi obat...">{{ old('deskripsi') }}</textarea>
 
-                        Format: JPG, JPEG, PNG, WEBP (Maksimal 2 MB)
+</div>
 
-                    </small>
+<div class="col-md-12">
 
-                    <br>
+<label class="form-label">
 
-                    <img
-                        id="preview"
-                        class="preview">
+Upload Gambar
 
-                </div>
+</label>
 
-            </div>
+<input
+type="file"
+id="gambar"
+name="gambar"
+class="form-control"
+accept=".jpg,.jpeg,.png,.webp">
 
-            <div class="mt-4">
+<div class="preview-box mt-3">
 
-                <a
-                    href="{{ route('obat.index') }}"
-                    class="btn-back">
+<img
+id="preview"
+class="preview">
 
-                    ← Kembali
+<p class="text-muted mt-3 mb-0">
 
-                </a>
+Preview gambar akan muncul di sini.
 
-                <button
-                    type="submit"
-                    class="btn-save">
+</p>
 
-                    💾 Simpan Data
+</div>
 
-                </button>
+</div>
 
-            </div>
+</div>
 
-        </form>
+<div class="mt-4 d-flex gap-2">
 
-    </div>
+<a
+href="{{ route('obat.index') }}"
+class="btn btn-back">
+
+<i class="bi bi-arrow-left"></i>
+
+Kembali
+
+</a>
+
+<button
+type="submit"
+class="btn btn-save">
+
+<i class="bi bi-floppy"></i>
+
+Simpan Data
+
+</button>
+
+</div>
+
+</form>
+
+</div>
 
 </div>
 
 <script>
 
-const gambar = document.getElementById('gambar');
+document.getElementById('gambar').addEventListener('change',function(e){
 
-gambar.addEventListener('change', function(e){
+const file=e.target.files[0];
 
-    let preview = document.getElementById('preview');
+const preview=document.getElementById('preview');
 
-    let file = e.target.files[0];
+if(file){
 
-    if(file){
+preview.src=URL.createObjectURL(file);
 
-        preview.src = URL.createObjectURL(file);
+preview.style.display='block';
 
-        preview.style.display='block';
-
-    }
+}
 
 });
 

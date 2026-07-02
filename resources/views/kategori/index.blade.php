@@ -4,70 +4,104 @@
 
 <style>
 
-    .header-card{
-        background:white;
-        border-radius:20px;
-        padding:25px;
-        margin-bottom:25px;
-        box-shadow:0 5px 20px rgba(0,0,0,.08);
-    }
+.page-title{
+    font-weight:700;
+    color:#1e293b;
+}
 
-    .table-card{
-        background:white;
-        border-radius:20px;
-        padding:25px;
-        box-shadow:0 5px 20px rgba(0,0,0,.08);
-    }
+.page-subtitle{
+    color:#64748b;
+}
 
-    .btn-add{
-        background:#2563eb;
-        color:white;
-        border:none;
-        border-radius:10px;
-        padding:10px 18px;
-        font-weight:600;
-    }
+.header-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
 
-    .btn-add:hover{
-        background:#1d4ed8;
-        color:white;
-    }
+.table-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
 
-    .table thead{
-        background:#2563eb;
-        color:white;
-    }
+.btn-add{
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:10px 18px;
+    font-weight:600;
+}
 
-    .table thead th{
-        border:none;
-        padding:15px;
-    }
+.btn-add:hover{
+    background:#1d4ed8;
+    color:white;
+}
 
-    .table tbody td{
-        vertical-align:middle;
-    }
+.table{
+    margin-bottom:0;
+}
 
-    .btn-edit{
-        background:#facc15;
-        color:black;
-        border:none;
-    }
+.table thead{
+    background:#2563eb;
+    color:white;
+}
 
-    .btn-edit:hover{
-        background:#eab308;
-        color:black;
-    }
+.table thead th{
+    border:none;
+    padding:15px;
+    text-align:center;
+}
 
-    .btn-delete{
-        background:#dc2626;
-        color:white;
-        border:none;
-    }
+.table tbody td{
+    vertical-align:middle;
+    text-align:center;
+}
 
-    .btn-delete:hover{
-        background:#b91c1c;
-        color:white;
-    }
+.badge-kategori{
+    background:#2563eb;
+    color:white;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.deskripsi{
+    text-align:left;
+    max-width:320px;
+    white-space:normal;
+}
+
+.btn-edit{
+    background:#f59e0b;
+    color:white;
+    border:none;
+}
+
+.btn-edit:hover{
+    background:#d97706;
+    color:white;
+}
+
+.btn-delete{
+    background:#dc2626;
+    color:white;
+    border:none;
+}
+
+.btn-delete:hover{
+    background:#b91c1c;
+    color:white;
+}
+
+.pagination{
+    justify-content:center;
+    margin-top:25px;
+}
 
 </style>
 
@@ -75,18 +109,25 @@
 
     <div>
 
-        <h2 class="fw-bold">
+        <h2 class="page-title">
+
             📂 Data Kategori
+
         </h2>
 
-        <p class="text-muted mb-0">
-            Kelola seluruh kategori obat.
+        <p class="page-subtitle mb-0">
+
+            Kelola seluruh kategori obat pada sistem apotek.
+
         </p>
 
     </div>
 
-    <a href="{{ route('kategori.create') }}" class="btn btn-add">
-        + Tambah Kategori
+    <a href="{{ route('kategori.create') }}"
+       class="btn btn-add">
+
+        ➕ Tambah Kategori
+
     </a>
 
 </div>
@@ -94,91 +135,122 @@
 @if(session('success'))
 
 <div class="alert alert-success">
+
     {{ session('success') }}
+
 </div>
 
 @endif
 
 <div class="table-card">
 
-    <div class="table-responsive">
+<div class="table-responsive">
 
-        <table class="table table-hover align-middle">
+<table class="table table-hover align-middle">
 
-            <thead>
+<thead>
 
-                <tr>
+<tr>
 
-                    <th>No</th>
-                    <th>Nama Kategori</th>
-                    <th>Deskripsi</th>
-                    <th width="180">Aksi</th>
+<th width="70">No</th>
+<th>Nama Kategori</th>
+<th>Deskripsi</th>
+<th width="180">Aksi</th>
 
-                </tr>
+</tr>
 
-            </thead>
+</thead>
 
-            <tbody>
+<tbody>
 
-                @forelse($kategori as $item)
+@forelse($kategori as $item)
 
-                <tr>
+<tr>
 
-                    <td>{{ $loop->iteration }}</td>
+<td>
 
-                    <td>{{ $item->nama_kategori }}</td>
+{{ $kategori->firstItem() + $loop->index }}
 
-                    <td>{{ $item->deskripsi }}</td>
+</td>
 
-                    <td>
+<td>
 
-                        <a href="{{ route('kategori.edit',$item->id) }}"
-                           class="btn btn-warning btn-sm btn-edit">
+<span class="badge-kategori">
 
-                            Edit
+{{ $item->nama_kategori }}
 
-                        </a>
+</span>
 
-                        <form action="{{ route('kategori.destroy',$item->id) }}"
-                              method="POST"
-                              class="d-inline">
+</td>
 
-                            @csrf
-                            @method('DELETE')
+<td class="deskripsi">
 
-                            <button
-                                class="btn btn-danger btn-sm btn-delete"
-                                onclick="return confirm('Yakin ingin menghapus kategori ini?')">
+{{ $item->deskripsi ?: '-' }}
 
-                                Hapus
+</td>
 
-                            </button>
+<td>
 
-                        </form>
+<a
+href="{{ route('kategori.edit',$item->id) }}"
+class="btn btn-sm btn-edit">
 
-                    </td>
+✏ Edit
 
-                </tr>
+</a>
 
-                @empty
+<form
+action="{{ route('kategori.destroy',$item->id) }}"
+method="POST"
+class="d-inline">
 
-                <tr>
+@csrf
+@method('DELETE')
 
-                    <td colspan="4" class="text-center text-muted">
+<button
+type="submit"
+class="btn btn-sm btn-delete"
+onclick="return confirm('Yakin ingin menghapus kategori ini?')">
 
-                        Belum ada data kategori.
+🗑 Hapus
 
-                    </td>
+</button>
 
-                </tr>
+</form>
 
-                @endforelse
+</td>
 
-            </tbody>
+</tr>
 
-        </table>
+@empty
 
-    </div>
+<tr>
+
+<td colspan="4" class="text-center text-muted py-4">
+
+Belum ada data kategori.
+
+</td>
+
+</tr>
+
+@endforelse
+
+</tbody>
+
+</table>
+
+</div>
+
+@if($kategori->hasPages())
+
+<div class="mt-4">
+
+{{ $kategori->links('pagination::bootstrap-5') }}
+
+</div>
+
+@endif
 
 </div>
 

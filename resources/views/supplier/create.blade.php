@@ -4,75 +4,115 @@
 
 <style>
 
-    .card-custom{
-        background:white;
-        border:none;
-        border-radius:20px;
-        box-shadow:0 5px 20px rgba(0,0,0,.08);
-    }
+.page-title{
+    font-weight:700;
+    color:#1E293B;
+}
 
-    .header-custom{
-        background:linear-gradient(135deg,#2563eb,#7c3aed);
-        color:white;
-        border-radius:20px 20px 0 0;
-        padding:25px;
-    }
+.page-subtitle{
+    color:#64748B;
+}
 
-    .card-body{
-        padding:30px;
-    }
+.card-custom{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
 
-    .form-control{
-        border-radius:10px;
-    }
+.card-header-custom{
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
+    color:white;
+    border-radius:20px 20px 0 0;
+    padding:25px;
+}
 
-    .btn-save{
-        background:#2563eb;
-        color:white;
-        border:none;
-        padding:10px 20px;
-        border-radius:10px;
-    }
+.form-label{
+    font-weight:600;
+    color:#334155;
+}
 
-    .btn-save:hover{
-        background:#1d4ed8;
-        color:white;
-    }
+.form-control{
+    border-radius:12px;
+    border:1px solid #CBD5E1;
+    padding:12px;
+}
 
-    .btn-back{
-        background:#6b7280;
-        color:white;
-        text-decoration:none;
-        padding:10px 20px;
-        border-radius:10px;
-    }
+.form-control:focus{
+    border-color:#2563EB;
+    box-shadow:0 0 0 .15rem rgba(37,99,235,.15);
+}
 
-    .btn-back:hover{
-        background:#4b5563;
-        color:white;
-    }
+.btn-save{
+    background:#2563EB;
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:12px 24px;
+    font-weight:600;
+}
+
+.btn-save:hover{
+    background:#1D4ED8;
+    color:white;
+}
+
+.btn-back{
+    background:#64748B;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    padding:12px 24px;
+    font-weight:600;
+}
+
+.btn-back:hover{
+    background:#475569;
+    color:white;
+}
+
+.alert{
+    border-radius:15px;
+}
 
 </style>
 
+<div class="mb-4">
+
+    <h2 class="page-title">
+
+        🏢 Tambah Supplier
+
+    </h2>
+
+    <p class="page-subtitle">
+
+        Tambahkan supplier baru ke dalam sistem apotek.
+
+    </p>
+
+</div>
+
 <div class="card card-custom">
 
-    <div class="header-custom">
+    <div class="card-header-custom">
 
-        <h3>🏢 Tambah Supplier</h3>
+        <h4 class="mb-0">
 
-        <p class="mb-0">
-            Tambahkan supplier baru ke dalam sistem apotek.
-        </p>
+            📝 Form Tambah Supplier
+
+        </h4>
 
     </div>
 
-    <div class="card-body">
+    <div class="card-body p-4">
 
         @if($errors->any())
 
             <div class="alert alert-danger">
 
-                <ul class="mb-0">
+                <strong>Terjadi kesalahan:</strong>
+
+                <ul class="mt-2 mb-0">
 
                     @foreach($errors->all() as $error)
 
@@ -92,10 +132,12 @@
 
             <div class="row">
 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-4">
 
                     <label class="form-label">
+
                         Nama Supplier
+
                     </label>
 
                     <input
@@ -103,14 +145,17 @@
                         name="nama_supplier"
                         class="form-control"
                         value="{{ old('nama_supplier') }}"
+                        placeholder="Masukkan nama supplier"
                         required>
 
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-4">
 
                     <label class="form-label">
-                        Telepon
+
+                        Nomor Telepon
+
                     </label>
 
                     <input
@@ -118,48 +163,63 @@
                         name="telepon"
                         class="form-control"
                         value="{{ old('telepon') }}"
+                        placeholder="Contoh: 081234567890"
                         required>
 
                 </div>
 
-                <div class="col-12 mb-3">
+                <div class="col-12 mb-4">
 
                     <label class="form-label">
+
                         Alamat
+
                     </label>
 
                     <textarea
                         name="alamat"
-                        rows="3"
+                        rows="4"
                         class="form-control"
+                        placeholder="Masukkan alamat supplier"
                         required>{{ old('alamat') }}</textarea>
 
                 </div>
 
-                <div class="col-12 mb-3">
+                <div class="col-12 mb-4">
 
                     <label class="form-label">
+
                         Email
+
                     </label>
 
                     <input
                         type="email"
                         name="email"
                         class="form-control"
-                        value="{{ old('email') }}">
+                        value="{{ old('email') }}"
+                        placeholder="supplier@email.com">
 
                 </div>
 
             </div>
 
-            <div class="mt-4">
+            <div class="d-flex gap-2">
 
-                <a href="{{ route('supplier.index') }}" class="btn-back">
+                <a
+                    href="{{ route('supplier.index') }}"
+                    class="btn btn-back">
+
                     ← Kembali
+
                 </a>
 
-                <button type="submit" class="btn-save">
+                <button
+                    type="submit"
+                    class="btn btn-save">
+
                     💾 Simpan Supplier
+
                 </button>
 
             </div>

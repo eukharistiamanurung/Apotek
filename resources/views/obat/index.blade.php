@@ -4,44 +4,43 @@
 
 <style>
 
-.header-card{
-    background:white;
-    border-radius:20px;
-    padding:25px;
-    margin-bottom:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+.stat-card{
+    border:none;
+    border-radius:18px;
+    color:white;
+    padding:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-4px);
+}
+
+.bg-obat{
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
+}
+
+.bg-kategori{
+    background:linear-gradient(135deg,#8B5CF6,#7C3AED);
+}
+
+.bg-stok{
+    background:linear-gradient(135deg,#10B981,#059669);
 }
 
 .table-card{
     background:white;
+    border:none;
     border-radius:20px;
-    padding:25px;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-.btn-add{
-    background:#2563eb;
-    color:white;
-    border:none;
-    border-radius:10px;
-    padding:10px 18px;
-    font-weight:600;
-}
-
-.btn-add:hover{
-    background:#1d4ed8;
-    color:white;
-}
-
-.table thead{
-    background:#2563eb;
-    color:white;
-}
-
 .table thead th{
-    border:none;
-    padding:15px;
+    background:#2563EB;
+    color:white;
     text-align:center;
+    vertical-align:middle;
 }
 
 .table tbody td{
@@ -49,86 +48,135 @@
     text-align:center;
 }
 
-.badge-stock{
-    color:white;
-    padding:8px 14px;
-    border-radius:20px;
-    font-weight:bold;
-}
-
-.stok-banyak{
-    background:#16a34a;
-}
-
-.stok-sedikit{
-    background:#f59e0b;
-}
-
-.stok-habis{
-    background:#dc2626;
+.img-obat{
+    width:70px;
+    height:70px;
+    border-radius:12px;
+    object-fit:cover;
 }
 
 .badge-kategori{
-    background:#2563eb;
+    background:#2563EB;
     color:white;
-    padding:6px 12px;
+    padding:7px 12px;
     border-radius:15px;
 }
 
-.img-obat{
-    width:80px;
-    height:80px;
-    object-fit:cover;
-    border-radius:10px;
-    border:1px solid #ddd;
+.stok-banyak{
+    background:#10B981;
+}
+
+.stok-sedikit{
+    background:#F59E0B;
+}
+
+.stok-habis{
+    background:#EF4444;
+}
+
+.badge-stock{
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
 }
 
 .deskripsi{
-    max-width:250px;
     text-align:left;
-    white-space:normal;
-    word-wrap:break-word;
+    max-width:220px;
+}
+
+.btn-add{
+    border-radius:12px;
 }
 
 </style>
 
-<div class="header-card d-flex justify-content-between align-items-center">
+<h2 class="fw-bold mb-4">
 
-    <div>
+💊 Data Obat
 
-        <h2 class="fw-bold">
-            💊 Data Obat
-        </h2>
+</h2>
 
-        <p class="text-muted mb-0">
-            Kelola seluruh data obat pada sistem apotek.
-        </p>
+<div class="row mb-4">
 
-    </div>
+<div class="col-md-4">
 
-    <a href="{{ route('obat.create') }}" class="btn btn-add">
+<div class="stat-card bg-obat">
 
-        + Tambah Obat
+<h6>Total Obat</h6>
 
-    </a>
+<h2>{{ $totalObat }}</h2>
 
 </div>
 
-@if(session('success'))
+</div>
 
-<div class="alert alert-success">
+<div class="col-md-4">
 
-    {{ session('success') }}
+<div class="stat-card bg-kategori">
+
+<h6>Total Kategori</h6>
+
+<h2>{{ $totalKategori }}</h2>
 
 </div>
 
-@endif
+</div>
+
+<div class="col-md-4">
+
+<div class="stat-card bg-stok">
+
+<h6>Total Stok</h6>
+
+<h2>{{ $totalStok }}</h2>
+
+</div>
+
+</div>
+
+</div>
 
 <div class="table-card">
 
+<div class="card-body">
+
+<div class="d-flex justify-content-between mb-4">
+
+<form method="GET">
+
+<div class="input-group">
+
+<input
+type="text"
+name="search"
+class="form-control"
+placeholder="Cari nama atau kode obat..."
+value="{{ $search }}">
+
+<button class="btn btn-primary">
+
+Cari
+
+</button>
+
+</div>
+
+</form>
+
+<a
+href="{{ route('obat.create') }}"
+class="btn btn-success btn-add">
+
++ Tambah Obat
+
+</a>
+
+</div>
+
 <div class="table-responsive">
 
-<table class="table table-hover align-middle">
+<table class="table table-hover">
 
 <thead>
 
@@ -137,12 +185,12 @@
 <th>No</th>
 <th>Gambar</th>
 <th>Kode</th>
-<th>Nama Obat</th>
+<th>Nama</th>
 <th>Kategori</th>
 <th>Deskripsi</th>
 <th>Stok</th>
 <th>Harga</th>
-<th width="180">Aksi</th>
+<th>Aksi</th>
 
 </tr>
 
@@ -154,7 +202,11 @@
 
 <tr>
 
-<td>{{ $loop->iteration }}</td>
+<td>
+
+{{ $obat->firstItem()+$loop->index }}
+
+</td>
 
 <td>
 
@@ -166,9 +218,7 @@ class="img-obat">
 
 @else
 
-<span class="text-muted">
-Tidak Ada
-</span>
+-
 
 @endif
 
@@ -198,11 +248,7 @@ Tidak Ada
 
 @else
 
-<span class="text-muted">
-
-Belum Ada
-
-</span>
+-
 
 @endif
 
@@ -210,13 +256,13 @@ Belum Ada
 
 <td class="deskripsi">
 
-{{ $item->deskripsi ?? '-' }}
+{{ Str::limit($item->deskripsi,50) }}
 
 </td>
 
 <td>
 
-@if($item->stok > 10)
+@if($item->stok>10)
 
 <span class="badge-stock stok-banyak">
 
@@ -224,7 +270,7 @@ Belum Ada
 
 </span>
 
-@elseif($item->stok > 0)
+@elseif($item->stok>0)
 
 <span class="badge-stock stok-sedikit">
 
@@ -256,7 +302,7 @@ Rp {{ number_format($item->harga_jual,0,',','.') }}
 href="{{ route('obat.edit',$item->id) }}"
 class="btn btn-warning btn-sm">
 
-Edit
+✏
 
 </a>
 
@@ -269,11 +315,10 @@ class="d-inline">
 @method('DELETE')
 
 <button
-type="submit"
 class="btn btn-danger btn-sm"
-onclick="return confirm('Yakin ingin menghapus data obat?')">
+onclick="return confirm('Yakin ingin menghapus data?')">
 
-Hapus
+🗑
 
 </button>
 
@@ -287,7 +332,7 @@ Hapus
 
 <tr>
 
-<td colspan="9" class="text-center">
+<td colspan="9">
 
 Belum ada data obat.
 
@@ -300,6 +345,14 @@ Belum ada data obat.
 </tbody>
 
 </table>
+
+</div>
+
+<div class="mt-4">
+
+{{ $obat->links() }}
+
+</div>
 
 </div>
 

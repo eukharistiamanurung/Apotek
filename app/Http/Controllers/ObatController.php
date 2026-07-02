@@ -10,13 +10,43 @@ use Illuminate\Support\Facades\Storage;
 class ObatController extends Controller
 {
     /**
-     * Menampilkan seluruh data obat
+     * Menampilkan daftar obat
      */
-    public function index()
+    public function index(Request $request)
     {
-        $obat = Obat::with('kategori')->latest()->get();
+        $search = $request->search;
 
-        return view('obat.index', compact('obat'));
+        $obat = Obat::with('kategori')
+
+            ->when($search, function ($query) use ($search) {
+
+                $query->where(function ($q) use ($search) {
+
+                    $q->where('nama_obat', 'like', '%' . $search . '%')
+                      ->orWhere('kode_obat', 'like', '%' . $search . '%');
+
+                });
+
+            })
+
+            ->latest()
+
+            ->paginate(8)
+
+            ->withQueryString();
+
+        // Statistik
+        $totalObat = Obat::count();
+        $totalKategori = Kategori::count();
+        $totalStok = Obat::sum('stok');
+
+        return view('obat.index', compact(
+            'obat',
+            'search',
+            'totalObat',
+            'totalKategori',
+            'totalStok'
+        ));
     }
 
     /**
@@ -24,7 +54,7 @@ class ObatController extends Controller
      */
     public function create()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::orderBy('nama_kategori')->get();
 
         return view('obat.create', compact('kategori'));
     }
@@ -37,7 +67,7 @@ class ObatController extends Controller
         $request->validate([
             'kategori_id' => 'required|exists:kategoris,id',
             'kode_obat'   => 'required|unique:obats,kode_obat',
-            'nama_obat'   => 'required',
+            'nama_obat'   => 'required|max:255',
             'deskripsi'   => 'nullable|string',
             'stok'        => 'required|integer|min:0',
             'harga_jual'  => 'required|numeric|min:0',
@@ -47,10 +77,13 @@ class ObatController extends Controller
         $gambar = null;
 
         if ($request->hasFile('gambar')) {
+
             $gambar = $request->file('gambar')->store('obat', 'public');
+
         }
 
         Obat::create([
+
             'kategori_id' => $request->kategori_id,
             'kode_obat'   => $request->kode_obat,
             'nama_obat'   => $request->nama_obat,
@@ -58,6 +91,7 @@ class ObatController extends Controller
             'stok'        => $request->stok,
             'harga_jual'  => $request->harga_jual,
             'gambar'      => $gambar,
+
         ]);
 
         return redirect()
@@ -71,9 +105,13 @@ class ObatController extends Controller
     public function edit($id)
     {
         $obat = Obat::findOrFail($id);
-        $kategori = Kategori::all();
 
-        return view('obat.edit', compact('obat', 'kategori'));
+        $kategori = Kategori::orderBy('nama_kategori')->get();
+
+        return view('obat.edit', compact(
+            'obat',
+            'kategori'
+        ));
     }
 
     /**
@@ -86,7 +124,7 @@ class ObatController extends Controller
         $request->validate([
             'kategori_id' => 'required|exists:kategoris,id',
             'kode_obat'   => 'required|unique:obats,kode_obat,' . $id,
-            'nama_obat'   => 'required',
+            'nama_obat'   => 'required|max:255',
             'deskripsi'   => 'nullable|string',
             'stok'        => 'required|integer|min:0',
             'harga_jual'  => 'required|numeric|min:0',
@@ -97,14 +135,21 @@ class ObatController extends Controller
 
         if ($request->hasFile('gambar')) {
 
-            if ($obat->gambar && Storage::disk('public')->exists($obat->gambar)) {
+            if (
+                $obat->gambar &&
+                Storage::disk('public')->exists($obat->gambar)
+            ) {
+
                 Storage::disk('public')->delete($obat->gambar);
+
             }
 
             $gambar = $request->file('gambar')->store('obat', 'public');
+
         }
 
         $obat->update([
+
             'kategori_id' => $request->kategori_id,
             'kode_obat'   => $request->kode_obat,
             'nama_obat'   => $request->nama_obat,
@@ -112,6 +157,7 @@ class ObatController extends Controller
             'stok'        => $request->stok,
             'harga_jual'  => $request->harga_jual,
             'gambar'      => $gambar,
+
         ]);
 
         return redirect()
@@ -126,8 +172,13 @@ class ObatController extends Controller
     {
         $obat = Obat::findOrFail($id);
 
-        if ($obat->gambar && Storage::disk('public')->exists($obat->gambar)) {
+        if (
+            $obat->gambar &&
+            Storage::disk('public')->exists($obat->gambar)
+        ) {
+
             Storage::disk('public')->delete($obat->gambar);
+
         }
 
         $obat->delete();

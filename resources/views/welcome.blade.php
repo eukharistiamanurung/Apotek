@@ -5,657 +5,817 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>ApotekKu</title>
+    <title>APOTEKKU | Sistem Informasi Apotek</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-<style>
+    <!-- Font -->
 
-*{
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+    <!-- Bootstrap Icons -->
 
-}
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-body{
+    <!-- AOS -->
 
-    min-height:100vh;
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+          rel="stylesheet">
 
-    background:
-    linear-gradient(rgba(15,23,42,.75),rgba(15,23,42,.85)),
-    url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1600&q=80');
+    <!-- CSS -->
 
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-
-    overflow-x:hidden;
-
-}
-
-.container-page{
-
-    min-height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:40px;
-
-}
-
-.main-card{
-
-    width:1200px;
-
-    min-height:650px;
-
-    background:rgba(255,255,255,.10);
-
-    backdrop-filter:blur(18px);
-
-    border-radius:30px;
-
-    overflow:hidden;
-
-    display:flex;
-
-    box-shadow:0 25px 50px rgba(0,0,0,.35);
-
-    border:1px solid rgba(255,255,255,.15);
-
-}
-
-.left-side{
-
-    width:55%;
-
-    color:white;
-
-    padding:70px 60px;
-
-    position:relative;
-
-}
-
-.right-side{
-
-    width:45%;
-
-    background:white;
-
-    padding:60px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.logo-img{
-
-    width:130px;
-
-    height:130px;
-
-    object-fit:contain;
-
-    background:white;
-
-    padding:15px;
-
-    border-radius:25px;
-
-    box-shadow:0 15px 30px rgba(0,0,0,.25);
-
-    margin-bottom:25px;
-
-}
-
-.title{
-
-    font-size:52px;
-
-    font-weight:700;
-
-    margin-bottom:10px;
-
-}
-
-.subtitle{
-
-    font-size:18px;
-
-    color:#dbeafe;
-
-    line-height:33px;
-
-    margin-bottom:35px;
-
-}
-
-.feature-box{
-
-    display:flex;
-
-    align-items:center;
-
-    background:rgba(255,255,255,.10);
-
-    padding:18px;
-
-    border-radius:18px;
-
-    margin-bottom:18px;
-
-    transition:.3s;
-
-}
-
-.feature-box:hover{
-
-    transform:translateX(10px);
-
-    background:rgba(255,255,255,.18);
-
-}
-
-.feature-icon{
-
-    width:55px;
-
-    height:55px;
-
-    border-radius:50%;
-
-    background:#22c55e;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:24px;
-
-    margin-right:18px;
-
-}
-
-.feature-title{
-
-    font-size:18px;
-
-    font-weight:600;
-
-}
-
-.feature-desc{
-
-    color:#d1d5db;
-
-    font-size:14px;
-
-}
-
-.login-card{
-
-    width:100%;
-
-}
-
-.login-title{
-
-    font-size:36px;
-
-    font-weight:700;
-
-    color:#1e293b;
-
-    margin-bottom:10px;
-
-}
-
-.login-subtitle{
-
-    color:#64748b;
-
-    margin-bottom:35px;
-
-}
-
-.btn-login{
-
-    width:100%;
-
-    background:linear-gradient(135deg,#2563eb,#3b82f6);
-
-    color:white;
-
-    border:none;
-
-    padding:15px;
-
-    border-radius:15px;
-
-    font-size:18px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-    margin-bottom:18px;
-
-}
-
-.btn-login:hover{
-
-    transform:translateY(-3px);
-
-    color:white;
-
-}
-
-.btn-register{
-
-    width:100%;
-
-    background:linear-gradient(135deg,#16a34a,#22c55e);
-
-    color:white;
-
-    border:none;
-
-    padding:15px;
-
-    border-radius:15px;
-
-    font-size:18px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-.btn-register:hover{
-
-    transform:translateY(-3px);
-
-    color:white;
-
-}
-
-.footer{
-
-    margin-top:35px;
-
-    text-align:center;
-
-    color:#94a3b8;
-
-    font-size:14px;
-
-}
-
-.circle1{
-
-    width:250px;
-
-    height:250px;
-
-    background:#3b82f6;
-
-    position:absolute;
-
-    top:-120px;
-
-    left:-120px;
-
-    border-radius:50%;
-
-    opacity:.15;
-
-}
-
-.circle2{
-
-    width:200px;
-
-    height:200px;
-
-    background:#22c55e;
-
-    position:absolute;
-
-    bottom:-90px;
-
-    right:-90px;
-
-    border-radius:50%;
-
-    opacity:.15;
-
-}
-
-@media(max-width:992px){
-
-.main-card{
-
-flex-direction:column;
-
-}
-
-.left-side,.right-side{
-
-width:100%;
-
-}
-
-.left-side{
-
-padding:40px;
-
-}
-
-.right-side{
-
-padding:40px;
-
-}
-
-.title{
-
-font-size:38px;
-
-}
-
-}
-
-</style>
+    <link rel="stylesheet"
+          href="{{ asset('css/welcome.css') }}">
 
 </head>
 
 <body>
 
-<div class="container-page">
+<!-- ========================= -->
+<!-- NAVBAR -->
+<!-- ========================= -->
 
-<div class="main-card">
+<nav class="navbar navbar-expand-lg fixed-top">
 
-<div class="left-side">
+    <div class="container">
 
-<div class="circle1"></div>
+        <a class="navbar-brand"
+           href="#">
 
-<div class="circle2"></div>
+            💊 APOTEKKU
 
-<!-- Logo -->
+        </a>
 
-<img
-    src="{{ asset('images/apotek.png') }}"
-    class="logo-img"
-    alt="Logo ApotekKu">
+        <button class="navbar-toggler bg-light"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu">
 
-<h1 class="title">
+            <span class="navbar-toggler-icon"></span>
 
-    APOTEKKU
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="menu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#tentang">
+
+                        Tentang
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#layanan">
+
+                        Layanan
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#kontak">
+
+                        Kontak
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ========================= -->
+<!-- HERO -->
+<!-- ========================= -->
+
+<section class="hero">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-lg-6"
+     data-aos="fade-right">
+
+<div class="glass">
+
+<span class="badge-promo">
+
+💙 SISTEM INFORMASI APOTEKKU
+
+</span>
+
+   <h1 class="hero-title">
+
+    <span id="typing-title"></span>
 
 </h1>
 
-<p class="subtitle">
+<p class="hero-desc">
 
-    Sistem Informasi Apotek modern untuk membantu pengelolaan
-    obat, supplier, kategori, penjualan, dan pembelian secara
-    cepat, aman, dan efisien.
+    Solusi modern untuk membantu pengelolaan
+    obat, stok, supplier, transaksi,
+    serta laporan apotek secara cepat,
+    aman, dan efisien.
 
 </p>
 
-<!-- Feature 1 -->
+    <div class="hero-button">
 
-<div class="feature-box">
+    <a href="{{ route('login') }}"
+    class="btn btn-login">
 
-    <div class="feature-icon">
+    <i class="bi bi-box-arrow-in-right"></i>
 
-        💊
+Login
 
-    </div>
+</a>
 
-    <div>
+<a href="{{ route('register') }}"
+   class="btn btn-register">
 
-        <div class="feature-title">
+<i class="bi bi-person-plus-fill"></i>
 
-            Manajemen Obat
+Register
 
-        </div>
-
-        <div class="feature-desc">
-
-            Kelola data obat lengkap beserta stok, harga,
-            kategori, gambar dan deskripsi.
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Feature 2 -->
-
-<div class="feature-box">
-
-    <div class="feature-icon">
-
-        📦
-
-    </div>
-
-    <div>
-
-        <div class="feature-title">
-
-            Supplier Terintegrasi
-
-        </div>
-
-        <div class="feature-desc">
-
-            Mengelola supplier obat beserta alamat,
-            email dan nomor telepon.
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Feature 3 -->
-
-<div class="feature-box">
-
-    <div class="feature-icon">
-
-        🛒
-
-    </div>
-
-    <div>
-
-        <div class="feature-title">
-
-            Penjualan Digital
-
-        </div>
-
-        <div class="feature-desc">
-
-            Seluruh transaksi penjualan tercatat
-            otomatis beserta invoice.
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Feature 4 -->
-
-<div class="feature-box">
-
-    <div class="feature-icon">
-
-        📊
-
-    </div>
-
-    <div>
-
-        <div class="feature-title">
-
-            Dashboard Modern
-
-        </div>
-
-        <div class="feature-desc">
-
-            Menampilkan statistik, grafik penjualan,
-            dan laporan secara realtime.
-
-        </div>
-
-    </div>
+</a>
 
 </div>
 
 </div>
 
-<!-- RIGHT SIDE -->
+</div>
 
-<div class="right-side">
+<div class="col-lg-6 text-center"
+     data-aos="fade-left">
 
-<div class="login-card">
+<div class="hero-image-wrapper">
 
-<h2 class="login-title">
+    <img src="{{ asset('animation/gif.gif') }}"
+         class="hero-image"
+         alt="APOTEKKU Animation">
 
-    Selamat Datang 👋
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- RUNNING BANNER -->
+<!-- ========================= -->
+
+<section>
+
+<div class="container">
+
+<div class="running-banner">
+
+<div class="running-track">
+
+<span>💊 Obat Berkualitas & Terjamin</span>
+
+<span>❤️ Konsultasi Dengan Apoteker Profesional</span>
+
+<span>🚚 Pelayanan Cepat & Ramah</span>
+
+<span>📦 Stok Selalu Terupdate</span>
+
+<span>🩺 Pelayanan Kesehatan Terpercaya</span>
+
+<span>💊 Obat Berkualitas & Terjamin</span>
+
+<span>❤️ Konsultasi Dengan Apoteker Profesional</span>
+
+<span>🚚 Pelayanan Cepat & Ramah</span>
+
+<span>📦 Stok Selalu Terupdate</span>
+
+<span>🩺 Pelayanan Kesehatan Terpercaya</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- TENTANG -->
+<!-- ========================= -->
+
+<section id="tentang" class="section-space">
+
+<div class="container">
+
+<div class="text-center mb-5" data-aos="fade-up">
+
+<span class="section-badge">
+
+Tentang Kami
+
+</span>
+
+<h2 class="section-title">
+
+Mengapa Memilih APOTEKKU?
 
 </h2>
 
-<p class="login-subtitle">
+<p class="section-desc">
 
-    Masuk untuk mengelola Sistem Informasi Apotek
-    atau daftar sebagai customer baru.
+APOTEKKU merupakan sistem informasi apotek modern yang
+dirancang untuk membantu pengelolaan apotek secara
+lebih efisien, aman, cepat dan profesional.
 
 </p>
 
-<div class="d-grid">
+</div>
 
-    <a
-        href="{{ route('login') }}"
-        class="btn btn-login">
+<div class="row g-4">
 
-        🔐 Login
+<div class="col-lg-4" data-aos="zoom-in">
 
-    </a>
+<div class="service-card">
 
-    <a
-        href="{{ route('register') }}"
-        class="btn btn-register">
+<div class="service-icon">
 
-        📝 Register Customer
-
-    </a>
+💊
 
 </div>
 
-<hr class="my-4">
+<h4>
 
-<div class="row text-center">
+Obat Berkualitas
 
-    <div class="col-4">
+</h4>
 
-        <h4 class="fw-bold text-primary">
+<p>
 
-            100+
+Menyediakan berbagai jenis obat
+yang terjamin kualitasnya
+serta telah memenuhi standar.
 
-        </h4>
+</p>
 
-        <small class="text-muted">
+</div>
 
-            Data Obat
+</div>
 
-        </small>
+<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="150">
+
+<div class="service-card">
+
+<div class="service-icon">
+
+🩺
+
+</div>
+
+<h4>
+
+Pelayanan Profesional
+
+</h4>
+
+<p>
+
+Melayani pelanggan dengan
+cepat, ramah dan dibantu
+oleh tenaga profesional.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+
+<div class="service-card">
+
+<div class="service-icon">
+
+📦
+
+</div>
+
+<h4>
+
+Stok Selalu Terupdate
+
+</h4>
+
+<p>
+
+Sistem selalu memperbarui
+stok obat secara otomatis
+agar data selalu akurat.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- SLOGAN -->
+<!-- ========================= -->
+
+<section class="section-space">
+
+<div class="container">
+
+<div class="glass slogan-box"
+data-aos="fade-up">
+
+<h2>
+
+💙 APOTEKKU
+
+</h2>
+
+<h3>
+
+"Melayani Dengan Hati,
+Menjaga Kesehatan Setiap Hari."
+
+</h3>
+
+<p>
+
+Kami percaya bahwa kesehatan adalah kebutuhan utama.
+
+Melalui Sistem Informasi APOTEKKU,
+seluruh proses pelayanan,
+pengelolaan stok,
+transaksi,
+hingga laporan dapat dilakukan
+lebih mudah,
+lebih cepat,
+dan lebih akurat.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- LAYANAN -->
+<!-- ========================= -->
+
+<section id="layanan" class="section-space">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<span class="section-badge">
+
+Layanan
+
+</span>
+
+<h2 class="section-title">
+
+Layanan APOTEKKU
+
+</h2>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-6 col-lg-3">
+
+<div class="feature-card">
+
+<i class="bi bi-capsule"></i>
+
+<h5>
+
+Manajemen Obat
+
+</h5>
+
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-3">
+
+<div class="feature-card">
+
+<i class="bi bi-truck"></i>
+
+<h5>
+
+Supplier
+
+</h5>
+
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-3">
+
+<div class="feature-card">
+
+<i class="bi bi-cart-check"></i>
+
+<h5>
+
+Transaksi
+
+</h5>
+
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-3">
+
+<div class="feature-card">
+
+<i class="bi bi-bar-chart-fill"></i>
+
+<h5>
+
+Laporan
+
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- TESTIMONI -->
+<!-- ========================================= -->
+
+<section class="section-space">
+
+    <div class="container">
+
+        <div class="text-center mb-5" data-aos="fade-up">
+
+            <span class="section-badge">
+
+                Testimoni
+
+            </span>
+
+            <h2 class="section-title">
+
+                Apa Kata Pelanggan?
+
+            </h2>
+
+            <p class="section-desc">
+
+                Kepuasan pelanggan adalah prioritas utama kami.
+
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4" data-aos="fade-up">
+
+                <div class="review-card">
+
+                    <div class="review-star">
+
+                        ★★★★★
+
+                    </div>
+
+                    <p>
+
+                        "Pelayanan sangat cepat,
+                        obat lengkap,
+                        dan sistemnya mudah digunakan."
+
+                    </p>
+
+                    <h5>
+
+                        Eukharistia
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="150">
+
+                <div class="review-card">
+
+                    <div class="review-star">
+
+                        ★★★★★
+
+                    </div>
+
+                    <p>
+
+                        "Tampilannya modern,
+                        transaksi menjadi jauh lebih mudah."
+
+                    </p>
+
+                    <h5>
+
+                        Lashi
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+
+                <div class="review-card">
+
+                    <div class="review-star">
+
+                        ★★★★★
+
+                    </div>
+
+                    <p>
+
+                        "Sangat membantu dalam
+                        mengelola apotek setiap hari."
+
+                    </p>
+
+                    <h5>
+
+                        Samuel Sianturi
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="col-4">
+</section>
 
-        <h4 class="fw-bold text-success">
+<!-- ========================================= -->
+<!-- CALL TO ACTION -->
+<!-- ========================================= -->
 
-            24
+<section class="section-space">
 
-        </h4>
+    <div class="container">
 
-        <small class="text-muted">
+        <div class="glass text-center cta-box" data-aos="zoom-in">
 
-            Jam Layanan
+            <h2>
 
-        </small>
+                Siap Menggunakan APOTEKKU?
+
+            </h2>
+
+            <p>
+
+                Kelola apotek Anda dengan sistem yang
+                lebih modern, aman, dan efisien.
+
+            </p>
+
+            <div class="mt-4">
+
+                <a href="{{ route('login') }}"
+                   class="btn btn-login">
+
+                    Login
+
+                </a>
+
+                <a href="{{ route('register') }}"
+                   class="btn btn-register">
+
+                    Register
+
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="col-4">
+</section>
 
-        <h4 class="fw-bold text-warning">
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
 
-            100%
+<footer id="kontak">
 
-        </h4>
+    <div class="container">
 
-        <small class="text-muted">
+        <div class="row gy-5">
 
-            Aman
+            <div class="col-lg-4">
 
-        </small>
+                <h3>
+
+                    💊 APOTEKKU
+
+                </h3>
+
+                <p>
+
+                    Sistem Informasi Apotek berbasis Laravel
+                    untuk membantu pengelolaan obat,
+                    transaksi,
+                    supplier,
+                    dan laporan secara modern.
+
+                </p>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <h4>
+
+                    Menu
+
+                </h4>
+
+                <ul class="footer-menu">
+
+                    <li>
+
+                        <a href="#">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#tentang">
+
+                            Tentang
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#layanan">
+
+                            Layanan
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#kontak">
+
+                            Kontak
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <h4>
+
+                    Hubungi Kami
+
+                </h4>
+
+                <p>
+
+                    📍 Medan, Sumatera Utara
+
+                </p>
+
+                <p>
+
+                    📧 admin@apotekku.com
+
+                </p>
+
+                <p>
+
+                    ☎ +62 812-3456-7890
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center footer-copy">
+
+            © {{ date('Y') }}
+
+            APOTEKKU
+
+            <br>
+
+            Sistem Informasi Apotek Berbasis Laravel
+
+        </div>
 
     </div>
 
-</div>
+</footer>
 
-<div class="footer">
-
-    © {{ date('Y') }}
-
-    <br>
-
-    <strong>APOTEKKU</strong>
-
-    <br>
-
-    Sistem Informasi Apotek Berbasis Laravel
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script src="{{ asset('js/welcome.js') }}"></script>
 
 </body>
 
 </html>
+

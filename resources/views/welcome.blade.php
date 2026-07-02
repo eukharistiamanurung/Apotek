@@ -403,7 +403,7 @@ font-size:38px;
 <!-- Logo -->
 
 <img
-    src="{{ asset('images/logo.png') }}"
+    src="{{ asset('images/apotek.png') }}"
     class="logo-img"
     alt="Logo ApotekKu">
 
